@@ -1,28 +1,53 @@
-import Profile from './Profile.jsx';
-import userData from './userData.json';
+import { useState, useEffect } from 'react';
+
+import Description from './Description.jsx';
+import Options from './Options.jsx'
 
 import "./App.css";
 
-import friends from './friends.json';
-import FriendList from './FriendList.jsx';
-
-import transactions from './transactions.json';
-import TransactionHistory from './TransactionHistory.jsx';
 
 const App = () => {
+  const [feedbacks, setFeedbacks] = useState(() => {
+    const savedFeedback = JSON.parse(window.localStorage.getItem('feedbacks'));
+    return savedFeedback ? savedFeedback : { good: 0, neutral: 0, bad: 0 };
+  });
+  
+  const updateFeedback = (feedbackType) => {
+    setFeedbacks({
+      ...feedbacks,
+      [feedbackType]: feedbacks[feedbackType] + 1,
+    })
+  };
+
+    useEffect(() => {
+    window.localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+  }, [feedbacks]);
+
+  const totalFeedback = feedbacks.good + feedbacks.neutral + feedbacks.bad;
+  const positivePercentage = Math.round(((feedbacks.good + feedbacks.neutral) / totalFeedback) * 100);
+
+    const handleReset = () => {
+    setFeedbacks({ good: 0, neutral: 0, bad: 0 });
+  };
+
+
+
   return (
     <>
-      <Profile
-        name={userData.username}
-        tag={userData.tag}
-        location={userData.location}
-        image={userData.avatar}
-        stats={userData.stats}
-      />
-      <FriendList friends={friends} />
-      <TransactionHistory items={transactions} />
+      <Description/>
+      <Options onFeedback={updateFeedback} onReset={handleReset} hasFeedback={totalFeedback > 0} />
+      {/* {totalFeedback > 0 ? 
+        (<Feedback good={feedbacks.good}
+        neutral={feedbacks.neutral}
+        bad={feedbacks.bad}
+        total={totalFeedback}
+        positivePercentage={positivePercentage}/>)
+      : (
+        <Notification/>
+      )} */}
+
     </>
-  );
-};
+  )
+}
 
 export default App;

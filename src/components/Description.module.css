@@ -1,4 +1,15 @@
-body {
+.name {
+    font-weight: 600;
+}
+
+.description {
+    color: black;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+
+/* body {
     background-color: #ffffff;
     color: black;
     font-family: "Roboto", sans-serif;
@@ -88,4 +99,4 @@ li {
     line-height: 1.1;
     letter-spacing: 0.72px;
     text-transform: capitalize;
-}
+} */
