@@ -1,16 +1,14 @@
-import css from './FriendList.module.css';
+import css from './Feedback.module.css';
 
-const FriendListItem = ({ avatar, name, isOnline }) => {
+const Feedback = ({ good, neutral, bad, total, positivePercentage }) => {
     return (
-    <div className={css.item}>
-        <img className={css.avatar} src={avatar} alt="Avatar" width="48" />
-        <p className={css.name}>{name}</p>
-        <p className={`${css.status} ${isOnline ? css.onlineText : css.offlineText}`}>
-            {isOnline ? 'Online' : 'Offline'}
-        </p>
-    </div>
-
-)
+        <>
+            <p className={css.feedback}>Good: {good}</p>
+            <p className={css.feedback}>Neutral: {neutral}</p>
+            <p className={css.feedback}>Bad: {bad}</p>
+            <p className={css.feedback}>Total: {total}</p>
+            <p className={css.feedback}>Positive Percentage: {positivePercentage}%</p>
+        </>
+    )
 };
-
-export default FriendListItem;
+export default Feedback;

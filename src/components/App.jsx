@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 
 import Description from './Description.jsx';
 import Options from './Options.jsx'
+import Feedback from './Feedback.jsx';
+import Notification from './Notification.jsx';
+
 
 import "./App.css";
 
@@ -24,7 +27,7 @@ const App = () => {
   }, [feedbacks]);
 
   const totalFeedback = feedbacks.good + feedbacks.neutral + feedbacks.bad;
-  const positivePercentage = Math.round(((feedbacks.good + feedbacks.neutral) / totalFeedback) * 100);
+  const positivePercentage = Math.round(((feedbacks.good) / totalFeedback) * 100);
 
     const handleReset = () => {
     setFeedbacks({ good: 0, neutral: 0, bad: 0 });
@@ -35,8 +38,8 @@ const App = () => {
   return (
     <>
       <Description/>
-      <Options onFeedback={updateFeedback} onReset={handleReset} hasFeedback={totalFeedback > 0} />
-      {/* {totalFeedback > 0 ? 
+      <Options updateFeedback={updateFeedback} onReset={handleReset} totalFeedback={totalFeedback > 0} />
+      {totalFeedback > 0 ? 
         (<Feedback good={feedbacks.good}
         neutral={feedbacks.neutral}
         bad={feedbacks.bad}
@@ -44,7 +47,7 @@ const App = () => {
         positivePercentage={positivePercentage}/>)
       : (
         <Notification/>
-      )} */}
+      )}
 
     </>
   )
