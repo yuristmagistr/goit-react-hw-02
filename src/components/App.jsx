@@ -29,7 +29,7 @@ const App = () => {
   const totalFeedback = feedbacks.good + feedbacks.neutral + feedbacks.bad;
   const positivePercentage = Math.round(((feedbacks.good) / totalFeedback) * 100);
 
-    const handleReset = () => {
+    const resetFeedback = () => {
     setFeedbacks({ good: 0, neutral: 0, bad: 0 });
   };
 
@@ -38,7 +38,7 @@ const App = () => {
   return (
     <>
       <Description/>
-      <Options updateFeedback={updateFeedback} onReset={handleReset} totalFeedback={totalFeedback > 0} />
+      <Options updateFeedback={updateFeedback} resetFeedback={resetFeedback} totalFeedback={totalFeedback > 0} />
       {totalFeedback > 0 ? 
         (<Feedback good={feedbacks.good}
         neutral={feedbacks.neutral}
